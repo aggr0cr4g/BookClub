@@ -22,7 +22,7 @@ It also coverd some tools to explore windows internals
 
 # Windows OS Versions
 ---
- Internal version numbers of windows OS moved from 5.0 to 6.0 with the release of vista. This caused errors in software developed and checked version numbers based on Major Numbers. For EX  int eh code below you can what the issue is. 
+ Internal version numbers of windows OS moved from 5.0 to 6.0 with the release of vista. This caused errors in software developed b/c they usually only checked version  based on Major Numbers. For EX  int eh code below you can what the issue is. 
  ```
 using System;
 using System.Runtime.InteropServices;
