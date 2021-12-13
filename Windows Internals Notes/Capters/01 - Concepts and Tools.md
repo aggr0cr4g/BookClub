@@ -89,6 +89,7 @@ Since the Windows API is originally C style functions the sheer number of Functi
 **Common Language Runtime (CLR)** run-time engine which does Just-In-Time (JIT) compliation which translates the "bytecode" Common Intermediate Language (CIL) instructions to to opcodes used by the underlying hardware CPU. It is a COM in-process server (DLL). Note.. Remember note above that COM Server typically refers to DLL.
 
 **.NET Framework Class Library (FCL)** Collection of types that implement functionality typically needed by client-server applications. This is important because it allows many programing languages to implement the same class to execute a task.  Different Namespaces to be used by programing languanges. 
+
 ![#](../resources/net-framework-base-class-library.png)
 As we can see in the example code above about windows versions we use the .Net Class Library's System namespace `using System.Runtime.InteropServices` because we want to use use unmanaged DLLs (Windows API) translated by platform invoke services. Specifically we use the `DllImportAttribute()` Class. The code is "Unmanaged" because, albeit user-space, is Native to the os and not the runtime enviorment (See below image). 
 ![#](../resources/net-framework-relationship-with-operating-system.png)
