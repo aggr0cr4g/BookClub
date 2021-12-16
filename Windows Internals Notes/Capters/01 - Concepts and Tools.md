@@ -97,12 +97,37 @@ As we can see in the example code above about windows versions we use the .Net C
 ![#](../resources/net-framework-relationship-with-operating-system.png)
 
 ## Services, Functions, and Routines
+Important Terms as defined in the book:
+	- **Windows API Functions** Documented, Callable, subroutines in the Windows API. Ex: `CreateProcess()`
+	- **Native System Services (syscalls)** undocumented, underlying services in the OS that are callable from user-space. Ex the `NtCreateUserProcess()` is what the the windows api  `CreateProcess()` calles to create a new process
+	- **Kernel Support Functions (routines)** subroutines inside the Windows OS that can only be called from kernel mode. Ex `ExAllocatePoolWithTag()` is the routine the device drivers call to allocate memory from system heaps (or pools)
+	- **Windows Services** Processes started by the windows service control manager. For example Task Scheduler service. 
+	- **Dynamic Link Libaries  (DLL)** Callable subroutines that are linked together as a binary file. Windows will ensure there is only one instance of the code loaded into memory for all the programs that are refrencing it. 
+
 ### Process
+- Process is the container of resources that are used to execute a program. That is the main difference... A program is just a set of instructions and a process will comprise of the following: 
+	- Private Virtual address space: 
+	- Executable Program:
+	- Listing of open Handles: Various system resources accessable to all threads within the process. May include semaphores, sync objects, files
+	- Security Context: Access Token(s) 
+	- Process ID:
+	- Atlease 1 thread of execution:
+
+**Parrent Process** a process will refer to a parent which may or may not be the creator process. For example, if a PPID no longer exists. The process does not rely on the Parent process. A reason for this is if a user application requires the help of a broker process to call the process create API. In this event, the Parent process id would be potentially incorrect
+
 
 ### Threads
-#### Fibers
-#### User-Mode Scheduling (UMS) Threads
+**Thread** is an entity within a process that Windows and schedules for execution. It includes and accessable by `GetThreadContext`:
+-	set of CPU registers that represent the state of the processor
+-	Two Stacks one for Kernel Mode and one of User Mode
+-	private storage Thread Local Storage (TLS) for use by subsystems, run-time lib, and DLLs.
+-	Thread ID
+	
 
+#### Fibers
+Fibers can be thought of as light weight threads. They are are implimented in kernel32.dll and therefore completely in userspace. To use a fiber you must first make a call to `ConvertThreadToFiber`. From within the new fiber you can use `CreateFiber` however IOT begin execution you must call `SwitchToFiber` and it will run until you call the same function again to stop
+#### User-Mode Scheduling (UMS) Threads
+UMS Threads are a 64-bit technology and simular to a fiber. However, UMS will create a kernel level thread for preforming kernel actions like a syscall. 
 ### Jobs
 
 ### Virtual Memory
@@ -139,3 +164,5 @@ As we can see in the example code above about windows versions we use the .Net C
 
 
 
+# Undocumented APIs listed 
+- `NtSuspendProcess` Native API will place a process in a suspended state. This means all threads in the process.
